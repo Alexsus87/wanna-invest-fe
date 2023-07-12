@@ -9,8 +9,8 @@ import Filters from "./Filters";
 const World = () => {
   const [data, setData] = useState([]);
 
-  const onApplyChanges = ({ count, roi, total }) => {
-    console.log(count, roi, total);
+  const onApplyChanges = ({ roi, total }) => {
+    console.log(roi, total);
   };
 
   const getData = useCallback(async () => {

@@ -12,15 +12,10 @@ import "./Filters.css";
 
 const Filters = ({ onApply }) => {
   const [roi, setRoi] = useState("CASH_FLOW");
-  const [count, setCount] = useState(null);
   const [total, setTotal] = useState(null);
 
   const handleRoiChange = (event) => {
     setRoi(event.target.value);
-  };
-
-  const handleCountChange = (event) => {
-    setCount(event.target.value);
   };
 
   const handleTotalChange = (event) => {
@@ -28,20 +23,20 @@ const Filters = ({ onApply }) => {
   };
 
   const handleApply = () => {
-    onApply({ count, roi, total });
+    onApply({ roi, total });
   };
 
   return (
     <Card className="filters">
       <CardContent>
         <FormControl variant="standard" className="filter">
-          <InputLabel id="roi">ROI</InputLabel>
+          <InputLabel id="roi"></InputLabel>
           <Select
             labelId="roi"
             id="roi"
             value={roi}
             onChange={handleRoiChange}
-            label="ROI"
+            label=""
           >
             <MenuItem value={"CASH_FLOW"}>Cash flow</MenuItem>
 
@@ -49,17 +44,6 @@ const Filters = ({ onApply }) => {
 
             <MenuItem value={"CAP_RATE"}>Cap rate</MenuItem>
           </Select>
-        </FormControl>
-
-        <FormControl variant="standard" className="filter">
-          <TextField
-            id="booking-count"
-            label="Booking count"
-            variant="standard"
-            value={count}
-            onChange={handleCountChange}
-            inputProps={{ type: "number" }}
-          />
         </FormControl>
 
         <FormControl variant="standard">

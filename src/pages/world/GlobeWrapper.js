@@ -32,12 +32,12 @@ const GlobeWrapper = ({ data }) => {
                 hexSideColor={(d) => weightColor(d.sumWeight)}
                 hexLabel={(d) => {
                   return `
-            <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
-                <span>Booking count: <b>${d.points[0].count}</b></span>
-                <br />
-                <span>Sum: <b>${d.points[0].sum}</b></span>
-            </div>
-        `;
+                            <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
+                                <span>Booking count: <b>${d.points[0].count}</b></span>
+                                <br />
+                                <span>Sum: <b>${d.points[0].sum}</b></span>
+                            </div>
+                        `;
                 }}
               />
             </div>
