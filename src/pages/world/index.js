@@ -2,6 +2,7 @@ import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 
 import GlobeWrapper from "./GlobeWrapper";
+import MainCard from "components/MainCard";
 
 const World = () => {
   const [data, setData] = useState([]);
@@ -27,7 +28,11 @@ const World = () => {
     getData();
   }, [getData]);
 
-  return <GlobeWrapper data={data} />;
+  return (
+    <MainCard>
+      <GlobeWrapper data={data} />
+    </MainCard>
+  );
 };
 
 export default World;
