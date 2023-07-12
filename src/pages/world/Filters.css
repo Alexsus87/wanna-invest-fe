@@ -6,6 +6,10 @@
     margin-right: 25px;
 }
 
+.select {
+    min-width: 115px;
+}
+
 .apply {
     float: right;
 }

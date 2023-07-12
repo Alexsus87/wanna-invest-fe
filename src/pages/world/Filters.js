@@ -8,11 +8,15 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import { roiTypes } from "./constants";
 import "./Filters.css";
 
 const Filters = ({ onApply }) => {
-  const [roi, setRoi] = useState("CASH_FLOW");
-  const [total, setTotal] = useState(null);
+  const [roi, setRoi] = useState("");
+  const [total, setTotal] = useState("");
+  const [interest, setInterest] = useState("");
+  const [mortgageYears, setMortgageYears] = useState("");
+  const [investmentAmount, setInvestmentAmount] = useState("");
 
   const handleRoiChange = (event) => {
     setRoi(event.target.value);
@@ -22,14 +26,26 @@ const Filters = ({ onApply }) => {
     setTotal(event.target.value);
   };
 
+  const handleInterestChange = (event) => {
+    setInterest(event.target.value);
+  };
+
+  const handleMortgageYearsChange = (event) => {
+    setMortgageYears(event.target.value);
+  };
+
+  const handleInvestmentAmountChange = (event) => {
+    setInvestmentAmount(event.target.value);
+  };
+
   const handleApply = () => {
-    onApply({ roi, total });
+    onApply({ roi, total, interest, mortgageYears, investmentAmount });
   };
 
   return (
     <Card className="filters">
       <CardContent>
-        <FormControl variant="standard" className="filter">
+        <FormControl variant="standard" className="filter select">
           <InputLabel id="roi"></InputLabel>
           <Select
             labelId="roi"
@@ -38,15 +54,19 @@ const Filters = ({ onApply }) => {
             onChange={handleRoiChange}
             label=""
           >
-            <MenuItem value={"CASH_FLOW"}>Cash flow</MenuItem>
+            <MenuItem value={"sum"}>None</MenuItem>
 
-            <MenuItem value={"CASH_ON_CASH"}>Cash-on-Cash</MenuItem>
+            <MenuItem value={"cashFlow"}>{roiTypes.cashFlow.title}</MenuItem>
 
-            <MenuItem value={"CAP_RATE"}>Cap rate</MenuItem>
+            <MenuItem value={"cashOnCash"}>
+              {roiTypes.cashOnCash.title}
+            </MenuItem>
+
+            <MenuItem value={"capRate"}>{roiTypes.capRate.title}</MenuItem>
           </Select>
         </FormControl>
 
-        <FormControl variant="standard">
+        <FormControl variant="standard" className="filter">
           <TextField
             id="total-investment"
             label="Total Investment"
@@ -56,6 +76,43 @@ const Filters = ({ onApply }) => {
             inputProps={{ type: "number" }}
           />
         </FormControl>
+
+        {roi === "cashOnCash" ? (
+          <>
+            <FormControl variant="standard" className="filter">
+              <TextField
+                id="interest-rate"
+                label="Interest rate"
+                variant="standard"
+                value={interest}
+                onChange={handleInterestChange}
+                inputProps={{ type: "number" }}
+              />
+            </FormControl>
+
+            <FormControl variant="standard" className="filter">
+              <TextField
+                id="mortgage-years"
+                label="Mortgage years"
+                variant="standard"
+                value={mortgageYears}
+                onChange={handleMortgageYearsChange}
+                inputProps={{ type: "number" }}
+              />
+            </FormControl>
+
+            <FormControl variant="standard" className="filter">
+              <TextField
+                id="investment-amount"
+                label="Investment amount"
+                variant="standard"
+                value={investmentAmount}
+                onChange={handleInvestmentAmountChange}
+                inputProps={{ type: "number" }}
+              />
+            </FormControl>
+          </>
+        ) : null}
 
         <Button variant="contained" className="apply" onClick={handleApply}>
           Apply

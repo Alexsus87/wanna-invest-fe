@@ -8,28 +8,61 @@ import Filters from "./Filters";
 
 const World = () => {
   const [data, setData] = useState([]);
+  const [initialData, setInitialData] = useState([]);
+  const [type, setType] = useState("sum");
 
-  const onApplyChanges = ({ roi, total }) => {
-    console.log(roi, total);
+  const onApplyChanges = ({
+    roi,
+    total,
+    interest,
+    mortgageYears,
+    investmentAmount,
+  }) => {
+    if (roi === "cashOnCash") {
+      getData({ interest, mortgageYears, investmentAmount });
+      setType(roi);
+      return;
+    } else {
+      setType(roi);
+    }
+
+    if (total) {
+      const newData = data.filter((item) => item.sum <= total);
+
+      setData(newData);
+    } else {
+      setData(initialData);
+    }
   };
 
-  const getData = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        "https://lionfish-app-zv3go.ondigitalocean.app/api",
-        {
-          params: {
-            year: 2022,
-            groupBy: "city",
-            country: "United States",
-          },
+  const getData = useCallback(
+    async ({ interest, mortgageYears, investmentAmount } = {}) => {
+      try {
+        const response = await axios.get(
+          "https://lionfish-app-zv3go.ondigitalocean.app/api",
+          {
+            params: {
+              year: 2022,
+              groupBy: "city",
+              country: "United States",
+              interestRate: interest,
+              mortgageYears,
+              investmentAmount,
+            },
+          }
+        );
+
+        setData(response.data);
+
+        if (!interest && !mortgageYears && !investmentAmount) {
+          setInitialData(response.data);
         }
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     getData();
@@ -38,7 +71,7 @@ const World = () => {
   return (
     <MainCard>
       <Filters onApply={onApplyChanges} />
-      <GlobeWrapper data={data} />
+      <GlobeWrapper data={data} type={type} />
     </MainCard>
   );
 };
