@@ -16,7 +16,7 @@ const GlobeWrapper = ({ data }) => {
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
       hexBinPointsData={data}
-      hexBinPointWeight="pop"
+      hexBinPointWeight="count"
       hexAltitude={(d) => d.sumWeight * 6e-8}
       hexBinResolution={4}
       hexTopColor={(d) => weightColor(d.sumWeight)}
