@@ -16,13 +16,19 @@ const GlobeWrapper = ({ data }) => {
       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
       backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
       hexBinPointsData={data}
-      hexBinPointWeight="count"
-      hexAltitude={(d) => d.sumWeight * 6e-8}
-      hexBinResolution={4}
+      hexBinPointWeight="sum"
+      hexAltitude={(d) => d.sumWeight * 0.000001}
       hexTopColor={(d) => weightColor(d.sumWeight)}
       hexSideColor={(d) => weightColor(d.sumWeight)}
-      hexBinMerge={true}
-      enablePointerInteraction={false}
+      hexLabel={(d) => {
+        return `
+            <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
+                <span>Booking count: <b>${d.points[0].count}</b></span>
+                <br />
+                <span>Sum: <b>${d.points[0].sum}</b></span>
+            </div>
+        `;
+      }}
     />
   );
 };

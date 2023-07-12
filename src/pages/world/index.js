@@ -4,13 +4,18 @@ import axios from "axios";
 import GlobeWrapper from "./GlobeWrapper";
 
 const World = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   const getData = useCallback(async () => {
-
     try {
       const response = await axios.get(
-        "https://lionfish-app-zv3go.ondigitalocean.app/api"
+        "https://lionfish-app-zv3go.ondigitalocean.app/api",
+        {
+          params: {
+            year: 2022,
+            groupBy: "city",
+          },
+        }
       );
       setData(response.data);
     } catch (error) {
