@@ -30,6 +30,14 @@ const dashboard = {
       icon: icons.GlobalOutlined,
       breadcrumbs: false,
     },
+    {
+      id: "poly",
+      title: "Poly",
+      type: "item",
+      url: "/poly",
+      icon: icons.GlobalOutlined,
+      breadcrumbs: false,
+    },
   ],
 };
 

@@ -4,6 +4,7 @@ import { lazy } from "react";
 import Loadable from "components/Loadable";
 import MainLayout from "layout/MainLayout";
 import World from "pages/world"; // lazy not working
+import Poly from "pages/polygon/index";
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import("pages/dashboard")));
@@ -34,6 +35,10 @@ const MainRoutes = {
     {
       path: "globe",
       element: <World />,
+    },
+    {
+      path: "poly",
+      element: <Poly />,
     },
     {
       path: "color",
