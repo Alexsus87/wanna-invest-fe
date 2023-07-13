@@ -48,6 +48,10 @@ const GlobeWrapper = ({ data, type, width }) => {
                             <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
                                 <span>City: <b>${d.points[0].city}</b></span>
                                 <br />
+                                <span>Average property cost: <b>${USDollar.format(
+                                  d.points[0].averagePropertyCost
+                                )}</b></span>
+                                <br />
                                 <span>Booking count: <b>${
                                   d.points[0].count
                                 }</b></span>
