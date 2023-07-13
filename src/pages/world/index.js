@@ -34,7 +34,9 @@ const World = () => {
     }
 
     if (total) {
-      const newData = data.filter((item) => item.averagePropertyCost <= total);
+      const newData = initialData.filter(
+        (item) => item.averagePropertyCost <= total
+      );
 
       setData(newData);
     } else {
