@@ -13,7 +13,7 @@ import MainCard from "components/MainCard";
 import GlobeWrapper from "./GlobeWrapper";
 import Filters from "./Filters";
 
-const PADDINGS = 40;
+const PADDINGS = 120;
 
 const World = () => {
   const widthRef = useRef();
@@ -82,8 +82,6 @@ const World = () => {
   useLayoutEffect(() => {
     setWidth(widthRef.current.offsetWidth);
   }, []);
-
-  console.log(width);
 
   return (
     <>
