@@ -49,7 +49,7 @@ const Filters = ({ onApply }) => {
             onChange={handleRoiChange}
             label=""
           >
-            <MenuItem value={"sum"}>None</MenuItem>
+            <MenuItem value={"sum"}>Market volume</MenuItem>
 
             <MenuItem value={"cashFlow"}>{roiTypes.cashFlow.title}</MenuItem>
 

@@ -11,10 +11,15 @@ const weightColor = d3
   .scaleSequentialSqrt(d3.interpolateYlOrRd)
   .domain([0, 1e7]);
 
+const USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 const GlobeWrapper = ({ data, type }) => {
   const globeEl = useRef();
 
-  const _type = type || 'sum'
+  const _type = type || "sum";
 
   return (
     <Card>
@@ -37,10 +42,27 @@ const GlobeWrapper = ({ data, type }) => {
                 hexLabel={(d) => {
                   return `
                             <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
-                                <span>Booking count: <b>${d.points[0].count}</b></span>
+                                <span>City: <b>${
+                                    d.points[0]._id
+                                }</b></span>
+                                <br />
+                                <span>Booking count: <b>${
+                                  d.points[0].count
+                                }</b></span>
                                 <br />
                                 <span>
-                                    ${roiTypes[_type].title}: <b>${d.points[0][_type]}</b>
+                                    ${roiTypes[_type].title}: 
+                                        <b>
+                                            ${
+                                              roiTypes[_type].prefix
+                                                ? USDollar.format(
+                                                    d.points[0][_type]
+                                                  )
+                                                : d.points[0][_type]
+                                            }${
+                    roiTypes[_type].suffix ? roiTypes[_type].suffix : ""
+                  }
+                                        </b>
                                 </span>
                             </div>
                         `;
