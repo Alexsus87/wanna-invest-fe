@@ -11,15 +11,9 @@ const World = () => {
   const [initialData, setInitialData] = useState([]);
   const [type, setType] = useState("sum");
 
-  const onApplyChanges = ({
-    roi,
-    total,
-    interest,
-    mortgageYears,
-    investmentAmount,
-  }) => {
+  const onApplyChanges = ({ roi, total, interest, mortgageYears }) => {
     if (roi === "cashOnCash") {
-      getData({ interest, mortgageYears, investmentAmount });
+      getData({ interest, mortgageYears, investmentAmount: total });
       setType(roi);
       return;
     } else {

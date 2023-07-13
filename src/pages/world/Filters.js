@@ -16,7 +16,6 @@ const Filters = ({ onApply }) => {
   const [total, setTotal] = useState("");
   const [interest, setInterest] = useState("");
   const [mortgageYears, setMortgageYears] = useState("");
-  const [investmentAmount, setInvestmentAmount] = useState("");
 
   const handleRoiChange = (event) => {
     setRoi(event.target.value);
@@ -34,12 +33,8 @@ const Filters = ({ onApply }) => {
     setMortgageYears(event.target.value);
   };
 
-  const handleInvestmentAmountChange = (event) => {
-    setInvestmentAmount(event.target.value);
-  };
-
   const handleApply = () => {
-    onApply({ roi, total, interest, mortgageYears, investmentAmount });
+    onApply({ roi, total, interest, mortgageYears });
   };
 
   return (
@@ -66,17 +61,6 @@ const Filters = ({ onApply }) => {
           </Select>
         </FormControl>
 
-        <FormControl variant="standard" className="filter">
-          <TextField
-            id="total-investment"
-            label="Total Investment"
-            variant="standard"
-            value={total}
-            onChange={handleTotalChange}
-            inputProps={{ type: "number" }}
-          />
-        </FormControl>
-
         {roi === "cashOnCash" ? (
           <>
             <FormControl variant="standard" className="filter">
@@ -100,19 +84,19 @@ const Filters = ({ onApply }) => {
                 inputProps={{ type: "number" }}
               />
             </FormControl>
-
-            <FormControl variant="standard" className="filter">
-              <TextField
-                id="investment-amount"
-                label="Investment amount"
-                variant="standard"
-                value={investmentAmount}
-                onChange={handleInvestmentAmountChange}
-                inputProps={{ type: "number" }}
-              />
-            </FormControl>
           </>
         ) : null}
+
+        <FormControl variant="standard" className="filter">
+          <TextField
+            id="total-investment"
+            label="Investment amount"
+            variant="standard"
+            value={total}
+            onChange={handleTotalChange}
+            inputProps={{ type: "number" }}
+          />
+        </FormControl>
 
         <Button variant="contained" className="apply" onClick={handleApply}>
           Apply
