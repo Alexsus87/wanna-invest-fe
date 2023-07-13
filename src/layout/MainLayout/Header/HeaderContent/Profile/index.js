@@ -82,6 +82,10 @@ const Profile = () => {
   const iconBackColorOpen = 'grey.300';
 
   return (
+    <div></div>
+  );
+
+  return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <ButtonBase
         sx={{
