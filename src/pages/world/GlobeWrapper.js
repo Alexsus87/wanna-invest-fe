@@ -15,6 +15,14 @@ const USDollar = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
+const numberToFixed = (number) => {
+  if (number == null) {
+    return 0;
+  }
+
+  return +number.toFixed(2);
+};
+
 const GlobeWrapper = ({ data, type, width }) => {
   const globeEl = useRef();
 
@@ -38,7 +46,7 @@ const GlobeWrapper = ({ data, type, width }) => {
             hexLabel={(d) => {
               return `
                             <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
-                                <span>City: <b>${d.points[0]._id}</b></span>
+                                <span>City: <b>${d.points[0].city}</b></span>
                                 <br />
                                 <span>Booking count: <b>${
                                   d.points[0].count
@@ -52,7 +60,9 @@ const GlobeWrapper = ({ data, type, width }) => {
                                                 ? USDollar.format(
                                                     d.points[0][_type]
                                                   )
-                                                : +d.points[0][_type].toFixed(2)
+                                                : numberToFixed(
+                                                    d.points[0][_type]
+                                                  )
                                             }${
                 roiTypes[_type].suffix ? roiTypes[_type].suffix : ""
               }
