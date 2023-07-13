@@ -12,7 +12,7 @@ import { roiTypes } from "./constants";
 import "./Filters.css";
 
 const Filters = ({ onApply }) => {
-  const [roi, setRoi] = useState("");
+  const [roi, setRoi] = useState("sum");
   const [total, setTotal] = useState("");
   const [interest, setInterest] = useState("");
   const [mortgageYears, setMortgageYears] = useState("");
