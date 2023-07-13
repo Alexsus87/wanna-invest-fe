@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import Globe from "react-globe.gl";
 import * as d3 from "d3";
-import { SizeMe } from "react-sizeme";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
@@ -24,23 +23,19 @@ const GlobeWrapper = ({ data, type }) => {
   return (
     <Card>
       <CardContent>
-        <SizeMe monitorWidth>
-          {({ size: { width } }) => (
-            <div>
-              <Globe
-                ref={globeEl}
-                width={width}
-                height={width / (4 / 3)}
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-                hexBinPointsData={data}
-                hexBinPointWeight={_type}
-                hexAltitude={(d) => d.sumWeight * roiTypes[_type].coefficient}
-                hexTopColor={(d) => weightColor(d.sumWeight)}
-                hexSideColor={(d) => weightColor(d.sumWeight)}
-                hexLabel={(d) => {
-                  return `
+        <div>
+          <Globe
+            ref={globeEl}
+            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+            backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+            hexBinPointsData={data}
+            hexBinPointWeight={_type}
+            hexAltitude={(d) => d.sumWeight * roiTypes[_type].coefficient}
+            hexTopColor={(d) => weightColor(d.sumWeight)}
+            hexSideColor={(d) => weightColor(d.sumWeight)}
+            hexLabel={(d) => {
+              return `
                             <div style="background-color: white; padding: 5px; color: black; border-radius: 3px;">
                                 <span>City: <b>${d.points[0]._id}</b></span>
                                 <br />
@@ -58,17 +53,15 @@ const GlobeWrapper = ({ data, type }) => {
                                                   )
                                                 : +d.points[0][_type].toFixed(2)
                                             }${
-                    roiTypes[_type].suffix ? roiTypes[_type].suffix : ""
-                  }
+                roiTypes[_type].suffix ? roiTypes[_type].suffix : ""
+              }
                                         </b>
                                 </span>
                             </div>
                         `;
-                }}
-              />
-            </div>
-          )}
-        </SizeMe>
+            }}
+          />
+        </div>
       </CardContent>
     </Card>
   );
