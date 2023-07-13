@@ -1,12 +1,25 @@
-import { useEffect, useCallback, useState } from "react";
+import {
+  useEffect,
+  useCallback,
+  useState,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import MainCard from "components/MainCard";
 
 import GlobeWrapper from "./GlobeWrapper";
 import Filters from "./Filters";
 
+const PADDINGS = 40;
+
 const World = () => {
+  const widthRef = useRef();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [width, setWidth] = useState(0);
   const [data, setData] = useState([]);
   const [initialData, setInitialData] = useState([]);
   const [type, setType] = useState("sum");
@@ -31,6 +44,8 @@ const World = () => {
 
   const getData = useCallback(
     async ({ interest, mortgageYears, investmentAmount } = {}) => {
+      setIsLoading(true);
+
       try {
         const response = await axios.get(
           "https://lionfish-app-zv3go.ondigitalocean.app/api",
@@ -53,6 +68,8 @@ const World = () => {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     },
     []
@@ -62,11 +79,24 @@ const World = () => {
     getData();
   }, [getData]);
 
+  useLayoutEffect(() => {
+    setWidth(widthRef.current.offsetWidth);
+  }, []);
+
+  console.log(width);
+
   return (
-    <MainCard>
-      <Filters onApply={onApplyChanges} />
-      <GlobeWrapper data={data} type={type} />
-    </MainCard>
+    <>
+      <div ref={widthRef} />
+      <MainCard>
+        <Filters onApply={onApplyChanges} />
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <GlobeWrapper data={data} type={type} width={width - PADDINGS} />
+        )}
+      </MainCard>
+    </>
   );
 };
 
